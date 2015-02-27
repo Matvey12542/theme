@@ -1,4 +1,21 @@
-/**
- * This file should get overwritten if Method 1 is used. If Method 2 is chosen,
- * remove this comment and start adding your styles to this file.
- */
+/*bxslider*/
+.front-slider .views-field-body,
+.front-slider .views-field-title{
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  font-size: 24px;
+  background-color: #000066;
+  color: white;
+}
+.front-slider .views-field-body{
+  position: absolute;
+  left: 50px;
+  top: 100px;
+  font-size: 18px;
+  background-color: #660000;
+}
+.front-slider .bx-viewport{
+  border: none;
+  left: 0;
+}

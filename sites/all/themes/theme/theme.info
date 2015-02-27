@@ -25,6 +25,7 @@ regions[page_bottom]    = 'Page bottom'
 ;;;;;;;;;;;;;;;;;;;;;
 
 stylesheets[all][] = css/style.css
+stylesheets[all][] = js/bxslider/jquery.bxslider.css
 
 
 ; For information on choosing the desired method, please read the Drupal
@@ -39,6 +40,8 @@ stylesheets[all][] = css/style.css
 ; ;; Scripts
 ; ;;;;;;;;;;;;;;;;;;;;;
 ; 
+ scripts[] = 'js/bxslider/jquery.bxslider.min.js'
+ scripts[] = 'js/main.js'
 ; scripts[] = 'bootstrap/js/affix.js'
 ; scripts[] = 'bootstrap/js/alert.js'
 ; scripts[] = 'bootstrap/js/button.js'
