@@ -15,7 +15,95 @@
   font-size: 18px;
   background-color: #660000;
 }
-.front-slider .bx-viewport{
+.front-slider .bx-wrapper .bx-viewport{
   border: none;
   left: 0;
+
+}
+.front-slider .bx-wrapper:hover .bx-controls-direction a{
+  display: inline-block;
+
+}
+.front-slider .bx-wrapper:hover .bx-controls-direction a.bx-prev{
+  -webkit-animation: left_move 1s;
+  animation: left_move 1s;
+}
+.front-slider .bx-wrapper:hover .bx-controls-direction a.bx-next{
+  -webkit-animation: right_move 1s;
+  animation: right_move 1s;
+}
+.front-slider .bx-wrapper .bx-controls-direction a{
+  display: none;
+  text-indent: 0;
+  margin-top: -32px;
+  width: auto;
+  height: auto;
+  background: rgba(41,47,56,.5);
+  border-radius: 5px;
+  /*display: inline-block;*/
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  color: #ffffff;
+  text-decoration: none;
+}
+.front-slider .bx-wrapper .bx-controls-direction a:hover{
+  -webkit-animation: color_a 1s;
+  animation: color_a 1s;
+  color: #DD0017;
+}
+.front-slider .bx-controls-direction a.bx-next{
+  font-size: 60px;
+  padding: 0 18px 0 21px;
+}
+.front-slider .bx-controls-direction a.bx-prev{
+  font-size: 60px;
+  padding: 0 21px 0 18px;
+}
+.front-slider .bx-controls-direction a.bx-next:before{
+  content: "\f105";
+}
+.front-slider .bx-controls-direction a.bx-prev:before{
+  content: "\f104";
+}
+.front-slider .bx-wrapper .bx-pager{
+  bottom: 20px;
+}
+.front-slider .bx-wrapper .bx-pager.bx-default-pager a{
+  width: 30px;
+  background: #ffffff;
+}
+.front-slider .bx-wrapper .bx-pager.bx-default-pager a:hover,
+.front-slider .bx-wrapper .bx-pager.bx-default-pager a.active{background: #DD0017;}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes color_a {
+  from {color: #ffffff;}
+  to {color: #DD0017;}
+}
+
+/* Standard syntax */
+@keyframes color_a {
+  from {color: #ffffff;}
+  to {color: #DD0017;}
+}
+
+@-webkit-keyframes left_move {
+  from {left: -30px; opacity: 0}
+  to {left: 10px; opacity: 1}
+}
+@keyframes left_move {
+  from {left: -30px; opacity: 0}
+  to {left: 10px; opacity: 1}
+}
+@-webkit-keyframes right_move {
+  from {right: -30px; opacity: 0}
+  to {right: 10px; opacity: 1}
+}
+@keyframes right_move {
+  from {right: -30px; opacity: 0}
+  to {right: 10px; opacity: 1}
 }
