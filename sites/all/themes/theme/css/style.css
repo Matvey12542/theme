@@ -1,36 +1,37 @@
 /*bxslider*/
-.front-slider .views-field-body,
-.front-slider .views-field-title{
-  position: absolute;
-  left: 50px;
-  top: 50px;
-  font-size: 24px;
-  background-color: #000066;
-  color: white;
-}
 .front-slider .views-field-body{
   position: absolute;
-  left: 50px;
-  top: 100px;
-  font-size: 18px;
-  background-color: #660000;
+  left: 0;
+  padding: 0 80px;
+  top: 50px;
+  font-size: 24px;
+  /*background-color: #660000;*/
+  /*background: rgba(41,47,56,.5);*/
+  color: white;
+  -webkit-animation: top_move 0.5s;
+  animation: top_move 0.5s;
+}
+
+.front-slider .views-field-body .title{
+  font-size: 50px;
+}
+.front-slider .slider-active-slide{
+
 }
 .front-slider .bx-wrapper .bx-viewport{
   border: none;
   left: 0;
-
 }
 .front-slider .bx-wrapper:hover .bx-controls-direction a{
   display: inline-block;
-
 }
 .front-slider .bx-wrapper:hover .bx-controls-direction a.bx-prev{
-  -webkit-animation: left_move 1s;
-  animation: left_move 1s;
+  -webkit-animation: left_move 0.5s;
+  animation: left_move 0.5s;
 }
 .front-slider .bx-wrapper:hover .bx-controls-direction a.bx-next{
-  -webkit-animation: right_move 1s;
-  animation: right_move 1s;
+  -webkit-animation: right_move 0.5s;
+  animation: right_move 0.5s;
 }
 .front-slider .bx-wrapper .bx-controls-direction a{
   display: none;
@@ -73,7 +74,8 @@
   bottom: 20px;
 }
 .front-slider .bx-wrapper .bx-pager.bx-default-pager a{
-  width: 30px;
+  width: 25px;
+  height: 8px;
   background: #ffffff;
 }
 .front-slider .bx-wrapper .bx-pager.bx-default-pager a:hover,
@@ -106,4 +108,13 @@
 @keyframes right_move {
   from {right: -30px; opacity: 0}
   to {right: 10px; opacity: 1}
+}
+
+@-webkit-keyframes top_move {
+  from {top: -100px; opacity: 0}
+  to {top: 50px; opacity: 1}
+}
+@keyframes top_move {
+  from {top: -100px; opacity: 0}
+  to {top: 50px; opacity: 1}
 }
