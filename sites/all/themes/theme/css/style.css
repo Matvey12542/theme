@@ -140,3 +140,69 @@
 .top-front-products .mix{
   display: none;
 }
+
+
+/*Header*/
+.pane-system-main-menu {
+  width: 1170px;
+}
+.pane-system-main-menu .pane-content > .menu>li {
+  float: left;
+  /*display: inline-block;*/
+  padding: 20px 40px;
+  background-color: #009198;
+  -webkit-transition: background-color 0.8s ease-in-out;
+  -moz-transition: background-color 0.8s ease-in-out;
+  -o-transition: background-color 0.8s ease-in-out;
+  transition: background-color 0.8s ease-in-out;
+}
+.pane-system-main-menu .pane-content > .menu>li:hover {
+  background-color: #e74c3c;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  -moz-transition: background-color 0.1s ease-in-out;
+  -o-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+}
+.pane-system-main-menu .pane-content > .menu>li a {
+  color: #fff;
+}
+.pane-system-main-menu .pane-content > .menu>li a:hover {
+ text-decoration: none;
+}
+.pane-system-main-menu .pane-content > .menu>li.expanded ul {
+  /*display: none;*/
+  opacity: 0;
+  width: 0;
+  height: 0;
+  -webkit-transition: width 0.8s ease-in-out 0.3s, height 0.8s ease-in-out 0.2s, opacity 0.8s ease-in-out;
+  -moz-transition: width 0.8s ease-in-out 0.3s, height 0.8s ease-in-out 0.2s, opacity 0.8s ease-in-out;
+  -o-transition: width 0.8s ease-in-out 0.3s, height 0.8s ease-in-out 0.2s, opacity 0.8s ease-in-out;
+  transition: width 0.8s ease-in-out 0.3s, height 0.8s ease-in-out 0.2s, opacity 0.8s ease-in-out;
+}
+.pane-system-main-menu .pane-content > .menu>li.expanded:hover ul {
+  /*display: block;*/
+  opacity: 1;
+  width: 150px;
+  height: 100px;
+  -webkit-transition: width 0.8s ease-in-out, height 0.8s ease-in-out 0.4s, opacity 0.8s ease-in-out 0.5s;
+  -moz-transition: width 0.8s ease-in-out, height 0.8s ease-in-out 0.4s, opacity 0.8s ease-in-out 0.5s;
+  -o-transition: width 0.8s ease-in-out, height 0.8s ease-in-out 0.4s, opacity 0.8s ease-in-out 0.5s;
+  transition: width 0.8s ease-in-out, height 0.8s ease-in-out 0.4s, opacity 0.8s ease-in-out 0.5s;
+}
+.pane-system-main-menu .pane-content > .menu>li.expanded:hover ul li {
+  line-height: 30px;
+  -webkit-transition: line-height 0.8s ease-in-out 0.7s;
+  -moz-transition: line-height 0.8s ease-in-out 0.7s;
+  -o-transition: line-height 0.8s ease-in-out 0.7s;
+  transition: line-height 0.8s ease-in-out 0.7s;
+}
+.pane-system-main-menu .pane-content > .menu>li.expanded ul li {
+  line-height: 20px;
+  -webkit-transition: line-height 1s ease-in-out;
+  -moz-transition: line-height 1s ease-in-out;
+  -o-transition: line-height 1s ease-in-out;
+  transition: line-height 1s ease-in-out;
+}
+/*.pane-system-main-menu .pane-content > .menu>li.expanded:hover ul {*/
+  /*height: auto;*/
+/*}*/
