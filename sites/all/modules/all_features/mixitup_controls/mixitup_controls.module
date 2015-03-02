@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mixitup controls feature.
+ */
+
+include_once 'mixitup_controls.features.inc';

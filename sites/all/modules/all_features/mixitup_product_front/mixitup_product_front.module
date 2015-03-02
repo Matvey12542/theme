@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mixitup product front feature.
+ */
+
+include_once 'mixitup_product_front.features.inc';
