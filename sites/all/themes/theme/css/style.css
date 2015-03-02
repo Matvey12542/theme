@@ -18,6 +18,9 @@
 .front-slider .slider-active-slide{
 
 }
+.front-slider .bx-wrapper{
+  margin: 0 auto;
+}
 .front-slider .bx-wrapper .bx-viewport{
   border: none;
   left: 0;
@@ -117,4 +120,23 @@
 @keyframes top_move {
   from {top: -100px; opacity: 0}
   to {top: 50px; opacity: 1}
+}
+
+/*Top products*/
+.view-mixitup-controls .views-row{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #009198;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: -2px;
+}
+.top-front-products .views-row{
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.top-front-products .mix{
+  display: none;
 }

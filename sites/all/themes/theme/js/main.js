@@ -16,6 +16,9 @@
                 useCSS: true
             });
 
+
+          $('.top-front-products .view-content').mixItUp();
+
         }
     }
 })(jQuery);
