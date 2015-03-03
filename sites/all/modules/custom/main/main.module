@@ -7,22 +7,9 @@ function main_block_info() {
   $blocks = array();
 
   $blocks['cart_header'] = array(
-    'info' => t('Header: Shopping cart 1'),
+    'info' => t('Header: Shopping cart'),
     'cache' => DRUPAL_NO_CACHE,
-//    'visibility' => 0,
-//    'pages' => 'checkout*',
   );
-//  $blocks['sign_in'] = array(
-//    'info' => t('Sign in'),
-//    'cache' => DRUPAL_NO_CACHE,
-//  );
-//  $blocks['popup'] = array(
-//    'info' => t('Product Popup'),
-//  );
-//  $blocks['mixit'] = array(
-//    'info' => t('mixit_up block'),
-//    'cache' => DRUPAL_NO_CACHE,
-//  );
 
   return $blocks;
 }
