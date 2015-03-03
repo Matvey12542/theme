@@ -1,0 +1,9 @@
+name = Main custom module
+description = For theme.
+version = 7.x-1.x
+package = Custom
+core = 7.x
+
+dependencies[] = views
+
+files[] = views/handlers/main_handler_link.inc

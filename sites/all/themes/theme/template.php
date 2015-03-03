@@ -13,7 +13,11 @@ function theme_preprocess_views_view_unformatted(&$vars)
         if (!empty($vars['view']->result)) {
           foreach ($vars['view']->result as $k => $v) {
             if (!empty($v->taxonomy_term_data_name)) {
-              $vars['mixitup'][$k] = str_replace(' ','_',strtolower($v->taxonomy_term_data_name));
+              $filter_name = str_replace(' ','_',strtolower($v->taxonomy_term_data_name));
+              $vars['mixitup'][$k] = " data-filter='.{$filter_name}'";
+              if ($filter_name == 'all') {
+                $vars['mixitup'][$k] = " data-filter='{$filter_name}'";
+              }
             }
           }
         }
@@ -34,5 +38,4 @@ function theme_preprocess_views_view_unformatted(&$vars)
       }
       break;
   }
-
 }
