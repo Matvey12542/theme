@@ -1,0 +1,181 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function main_block_info() {
+  $blocks = array();
+
+  $blocks['cart_header'] = array(
+    'info' => t('Header: Shopping cart 1'),
+    'cache' => DRUPAL_NO_CACHE,
+//    'visibility' => 0,
+//    'pages' => 'checkout*',
+  );
+//  $blocks['sign_in'] = array(
+//    'info' => t('Sign in'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );
+//  $blocks['popup'] = array(
+//    'info' => t('Product Popup'),
+//  );
+//  $blocks['mixit'] = array(
+//    'info' => t('mixit_up block'),
+//    'cache' => DRUPAL_NO_CACHE,
+//  );
+
+  return $blocks;
+}
+//
+//
+/**
+ * Implements hook_block_view().
+ */
+function main_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'cart_header':
+      $cart = getCartContent();
+      $block['subject'] = $cart['subject'];
+      $block['content'] = $cart['content'];
+      break;
+  }
+
+  return $block;
+}
+
+function getCartContent() {
+  global $user;
+  $cart['content'] = theme('commerce_cart_empty_block');
+  $cart['subject'] = t('Cart empty');
+  if ($order = commerce_cart_order_load($user->uid)) {
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    $line_item_types = commerce_product_line_item_types();
+    $quantity = commerce_line_items_quantity($wrapper->commerce_line_items, $line_item_types);
+    $total = commerce_line_items_total($wrapper->commerce_line_items, $line_item_types);
+    $total_value = commerce_currency_format($total['amount'], $total['currency_code']);
+
+    // If there are one or more products in the cart...
+    if ($quantity > 0) {
+      // Build the variables array to send to the cart block template.
+      $order_id = commerce_cart_order_id($user->uid);
+      $variables = array(
+        'order' => $order,
+        'contents_view' => commerce_embed_view('commerce_cart_block', 'Master', array($order_id)),
+      );
+      $cart['subject'] = t('Cart (!quantity) !total', array('!quantity' => $quantity, '!total' => $total_value));
+      $cart['content'] = theme('commerce_cart_block', $variables);
+    }
+  }
+  return $cart;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function  main_menu() {
+
+  $items['to-cart/%/%/%ctools_js'] = array(
+    'title' => 'Add to cart',
+    'page callback' => 'tocart_ajax_callback',
+    'page arguments' => array(1,2,3),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+//  $items['product/remove/%'] = array(
+//    'page callback' => 'idevels_product_remove_ajax_callback',
+//    'page arguments' => array(2),
+//    'access arguments' => array('access content'),
+//    'type' => MENU_CALLBACK,
+//  );
+  return $items;
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function main_views_api() {
+  return array(
+    'api' => '3',
+    'path' => drupal_get_path('module', 'main') . '/views',
+  );
+}
+
+/**
+ *  tocart_ajax_callback.
+ */
+function tocart_ajax_callback($pid, $quantity = 1, $mode = NULL) {
+
+  $output = 'This product not found';
+  if ($product = commerce_product_load($pid)) {
+    commerce_cart_product_add_by_id($pid, $quantity);
+  }
+  if ($mode) {
+    ctools_include('ajax');
+
+    global $user;
+    $order_id = commerce_cart_order_id($user->uid);
+//    $cart = commerce_embed_view('commerce_cart_block', 'Master', array($order_id));
+
+    $cart = getCartContent();
+
+    $commands = array();
+//    $commands[] = ajax_command_html('#ctools-sample', $output);
+    $commands[] = ajax_command_replace('.pane-main-cart-header', $cart['subject']);
+    $commands[] = ajax_command_replace('.view-commerce-cart-block', $cart['content']);
+    print ajax_render($commands); // this function exits.
+    exit;
+  }
+  else {
+    return $output;
+  }
+}
+
+function idevels_product_remove_ajax_callback($lid, $mode = NULL) {
+  if ($mode == 'ajax') {
+    commerce_line_item_delete($lid);
+    global $user;
+    $order_id = commerce_cart_order_id($user->uid);
+    $cart = commerce_embed_view('commercebox_shopping_cart_block', 'Master', array($order_id));
+    $subject = _id_cart();
+    $commands = array();
+    //$commands[] = ajax_command_invoke('#block-commercebox-journal-theme-cb-cart .block-title', 'html', array($subject));
+    // $commands[] = ajax_command_replace('#block-commercebox-journal-theme-cb-cart .view-commercebox-shopping-cart-block', $cart);
+    $commands[] = ajax_command_invoke('#block-commercebox-journal-theme-cb-cart .block-title', 'html', array($subject));
+    $commands[] = ajax_command_replace('.view-commercebox-shopping-cart-block', $cart);
+    // return array('#type' => 'ajax', '#commands' => $commands);
+    return drupal_json_output($commands);
+  }
+}
+
+/**
+ * Helper function return title of cart block fo rajax.
+ */
+function _id_cart() {
+  global $user;
+  drupal_get_messages();
+  $subject = t('Cart empty');   // Default to an empty cart block message.
+  // First check to ensure there are products in the shopping cart.
+  if ($order = commerce_cart_order_load($user->uid)) {
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $line_item_types = commerce_product_line_item_types();
+    $quantity = commerce_line_items_quantity($wrapper->commerce_line_items, $line_item_types);
+    $total = commerce_line_items_total($wrapper->commerce_line_items, $line_item_types);
+    $total_value = commerce_currency_format($total['amount'], $total['currency_code']);
+    // If there are one or more products in the cart...
+    if ($quantity > 0) {
+      $subject = t('Cart (!quantity) !total', array('!quantity' => $quantity, '!total' => $total_value));
+    }
+  }
+  return $subject;
+}
+
+/**
+ * Implements Hook_install.
+ */
+function main_install() {
+  variable_set('sharethis_button_option', 'stbc_large');
+  variable_set('sharethis_location', 'block');
+}
