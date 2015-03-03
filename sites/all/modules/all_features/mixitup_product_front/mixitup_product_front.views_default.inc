@@ -79,6 +79,21 @@ function mixitup_product_front_views_default_views() {
   $handler->display->display_options['fields']['field_mixitap_category']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_mixitap_category']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_mixitap_category']['multi_type'] = 'ul';
+  /* Field: Commerce Product: Product ID */
+  $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['product_id']['field'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['relationship'] = 'field_products_product_id';
+  $handler->display->display_options['fields']['product_id']['label'] = 'For ajax link (dont delete!!!!)';
+  $handler->display->display_options['fields']['product_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['product_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['product_id']['link_to_product'] = 0;
+  /* Field: Global: Add to cart ajax link */
+  $handler->display->display_options['fields']['front_content']['id'] = 'front_content';
+  $handler->display->display_options['fields']['front_content']['table'] = 'views';
+  $handler->display->display_options['fields']['front_content']['field'] = 'front_content';
+  $handler->display->display_options['fields']['front_content']['label'] = '';
+  $handler->display->display_options['fields']['front_content']['element_label_colon'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
