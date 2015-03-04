@@ -21,4 +21,14 @@
 
         }
     }
+
+    Drupal.behaviors.owlCarousel = {
+        attach: function (context, settings) {
+            $(".owlCarousel .view-content").owlCarousel({
+                items: 2,
+                lazyLoad: true,
+                autoPlay: 5000
+            });
+        }
+    }
 })(jQuery);
