@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Brands view feature.
+ */
+
+include_once 'brands_view.features.inc';
