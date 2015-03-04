@@ -23,18 +23,21 @@ function main_block_view($delta = '') {
   switch ($delta) {
     case 'cart_header':
       $cart = getCartContent();
-      $block['subject'] = $cart['subject'];
-      $block['content'] = $cart['content'];
+      $block['subject'] = '';
+      $block['content'] = '<div class="cart">' . $cart['subject'] . $cart['content'] . '</div>';
       break;
   }
 
   return $block;
 }
 
+/**
+ * return cart content.
+ */
 function getCartContent() {
   global $user;
-  $cart['content'] = theme('commerce_cart_empty_block');
-  $cart['subject'] = t('Cart empty');
+  $cart_subject = t('Cart empty');
+  $cart_content = '<div class="cart-contents">'.theme('commerce_cart_empty_block').'</div>';
   if ($order = commerce_cart_order_load($user->uid)) {
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
@@ -51,17 +54,22 @@ function getCartContent() {
         'order' => $order,
         'contents_view' => commerce_embed_view('commerce_cart_block', 'Master', array($order_id)),
       );
-      $cart['subject'] = t('Cart (!quantity) !total', array('!quantity' => $quantity, '!total' => $total_value));
-      $cart['content'] = theme('commerce_cart_block', $variables);
+      $cart_subject = t('!quantity item(s) - !total', array('!quantity' => $quantity, '!total' => $total_value, 1));
+      $cart_content = str_replace(array("\t", "\n"), "", theme('commerce_cart_block', $variables));
     }
   }
+  $cart['subject'] = '<div class="cart-subject">' .
+    '<i class="fa fa-shopping-cart cart-icon"></i>' . '<span>' . $cart_subject .
+    '</span></div>';
+  $cart['content'] = $cart_content;
+
   return $cart;
 }
 
 /**
  * Implements hook_menu().
  */
-function  main_menu() {
+function main_menu() {
 
   $items['to-cart/%/%/%ctools_js'] = array(
     'title' => 'Add to cart',
@@ -70,12 +78,12 @@ function  main_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-//  $items['product/remove/%'] = array(
-//    'page callback' => 'idevels_product_remove_ajax_callback',
-//    'page arguments' => array(2),
-//    'access arguments' => array('access content'),
-//    'type' => MENU_CALLBACK,
-//  );
+  $items['product/remove/%'] = array(
+    'page callback' => 'main_product_remove_ajax_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -101,17 +109,12 @@ function tocart_ajax_callback($pid, $quantity = 1, $mode = NULL) {
   }
   if ($mode) {
     ctools_include('ajax');
-
-    global $user;
-    $order_id = commerce_cart_order_id($user->uid);
-//    $cart = commerce_embed_view('commerce_cart_block', 'Master', array($order_id));
-
     $cart = getCartContent();
 
     $commands = array();
-//    $commands[] = ajax_command_html('#ctools-sample', $output);
-    $commands[] = ajax_command_replace('.pane-main-cart-header', $cart['subject']);
-    $commands[] = ajax_command_replace('.view-commerce-cart-block', $cart['content']);
+    $commands[] = ajax_command_replace('.cart-subject', $cart['subject']);
+    $commands[] = ajax_command_replace('.cart-contents', $cart['content']);
+    $commands[] = ajax_command_invoke(NULL, 'addCartAnimation');
     print ajax_render($commands); // this function exits.
     exit;
   }
@@ -120,20 +123,18 @@ function tocart_ajax_callback($pid, $quantity = 1, $mode = NULL) {
   }
 }
 
-function idevels_product_remove_ajax_callback($lid, $mode = NULL) {
+function main_product_remove_ajax_callback($lid, $mode = NULL) {
+  commerce_line_item_delete($lid);
   if ($mode == 'ajax') {
-    commerce_line_item_delete($lid);
-    global $user;
-    $order_id = commerce_cart_order_id($user->uid);
-    $cart = commerce_embed_view('commercebox_shopping_cart_block', 'Master', array($order_id));
-    $subject = _id_cart();
+    $cart = getCartContent();
     $commands = array();
-    //$commands[] = ajax_command_invoke('#block-commercebox-journal-theme-cb-cart .block-title', 'html', array($subject));
-    // $commands[] = ajax_command_replace('#block-commercebox-journal-theme-cb-cart .view-commercebox-shopping-cart-block', $cart);
-    $commands[] = ajax_command_invoke('#block-commercebox-journal-theme-cb-cart .block-title', 'html', array($subject));
-    $commands[] = ajax_command_replace('.view-commercebox-shopping-cart-block', $cart);
-    // return array('#type' => 'ajax', '#commands' => $commands);
-    return drupal_json_output($commands);
+//    $commands[] = ajax_command_invoke(NULL, 'removeCartRow');
+    $commands[] = ajax_command_replace('.cart-subject', $cart['subject']);
+    $commands[] = ajax_command_replace('.cart-contents', $cart['content']);
+    $commands[] = ajax_command_invoke(NULL, 'addCartAnimation');
+
+    print ajax_render($commands); // this function exits.
+    exit;
   }
 }
 

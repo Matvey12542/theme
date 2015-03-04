@@ -147,6 +147,29 @@ function header_mini_panel_default_panels_mini() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
+    $pane->pid = 'new-7dfaf2fe-e500-408d-978e-a2e75638ecb7';
+    $pane->panel = 'cart';
+    $pane->type = 'block';
+    $pane->subtype = 'main-cart_header';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 0,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '7dfaf2fe-e500-408d-978e-a2e75638ecb7';
+    $display->content['new-7dfaf2fe-e500-408d-978e-a2e75638ecb7'] = $pane;
+    $display->panels['cart'][0] = 'new-7dfaf2fe-e500-408d-978e-a2e75638ecb7';
+    $pane = new stdClass();
     $pane->pid = 'new-61f8279b-0796-4a9f-a3fb-7328bda709ed';
     $pane->panel = 'logo';
     $pane->type = 'page_logo';

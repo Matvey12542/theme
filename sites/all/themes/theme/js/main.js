@@ -19,6 +19,26 @@
 
           $('.top-front-products .view-content').mixItUp();
 
+          $.fn.addCartAnimation = function(data) {
+            console.log('buu');
+            $('.fa-shopping-cart').addClass('cart-animation');
+            setTimeout(function() {
+              $('.cart-animation').removeClass('cart-animation');
+              console.log('remove');
+            }, 1000);
+          };
+
+          $('.remove-line').click(function(e){
+            e.preventDefault();
+            $(this).closest('tr').addClass('remove-row-animation');
+
+            console.log('animate');
+            setTimeout(function() {
+              $('.remove-row-animation').removeClass('remove-row-animation');
+              console.log('remove');
+              return true;
+            }, 2000);
+          });
         }
     }
 })(jQuery);

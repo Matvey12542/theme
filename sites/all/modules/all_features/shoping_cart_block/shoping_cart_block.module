@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Shoping cart block feature.
+ */
+
+include_once 'shoping_cart_block.features.inc';

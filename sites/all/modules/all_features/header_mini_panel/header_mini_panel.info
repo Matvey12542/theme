@@ -1,6 +1,8 @@
 name = Header mini_panel
 core = 7.x
 package = Features
+version = 7.x-1.0
+project = header_mini_panel
 features[ctools][] = panels_mini:panels_default:1
 features[features_api][] = api:2
 features[panels_mini][] = header
