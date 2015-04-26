@@ -61,6 +61,7 @@ function front_panel_default_page_manager_pages() {
         'children' => array(
           0 => 1,
           1 => 'main-row',
+          2 => 2,
         ),
         'parent' => 'canvas',
       ),
@@ -74,10 +75,12 @@ function front_panel_default_page_manager_pages() {
       ),
       'center' => array(
         'type' => 'region',
-        'title' => 'Center',
+        'title' => 'Products',
         'width' => 100,
         'width_type' => '%',
         'parent' => 'main-row',
+        'class' => '',
+        'hide_empty' => 0,
       ),
       1 => array(
         'type' => 'row',
@@ -98,6 +101,25 @@ function front_panel_default_page_manager_pages() {
         'class' => '',
         'hide_empty' => 0,
       ),
+      2 => array(
+        'type' => 'row',
+        'contains' => 'region',
+        'children' => array(
+          0 => 'brands',
+        ),
+        'parent' => 'main',
+        'class' => 'Brands',
+        'hide_empty' => 0,
+      ),
+      'brands' => array(
+        'type' => 'region',
+        'title' => 'Brands',
+        'width' => 100,
+        'width_type' => '%',
+        'parent' => '2',
+        'class' => '',
+        'hide_empty' => 0,
+      ),
     ),
   );
   $display->panel_settings = array(
@@ -105,6 +127,7 @@ function front_panel_default_page_manager_pages() {
       'default' => NULL,
       'center' => NULL,
       'top' => NULL,
+      'brands' => NULL,
     ),
   );
   $display->cache = array();
@@ -112,6 +135,79 @@ function front_panel_default_page_manager_pages() {
   $display->uuid = '9a183fc2-00da-4f95-ad2e-8dc3e2a25a77';
   $display->content = array();
   $display->panels = array();
+    $pane = new stdClass();
+    $pane->pid = 'new-6c9badd8-f0a0-4d7b-a1e2-5832eacbfc7f';
+    $pane->panel = 'brands';
+    $pane->type = 'views';
+    $pane->subtype = 'brands';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_pager_settings' => 0,
+      'use_pager' => 0,
+      'nodes_per_page' => '0',
+      'pager_id' => '0',
+      'offset' => '0',
+      'more_link' => 0,
+      'feed_icons' => 0,
+      'panel_args' => 0,
+      'link_to_view' => 0,
+      'args' => '',
+      'url' => '',
+      'display' => 'default',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '6c9badd8-f0a0-4d7b-a1e2-5832eacbfc7f';
+    $display->content['new-6c9badd8-f0a0-4d7b-a1e2-5832eacbfc7f'] = $pane;
+    $display->panels['brands'][0] = 'new-6c9badd8-f0a0-4d7b-a1e2-5832eacbfc7f';
+    $pane = new stdClass();
+    $pane->pid = 'new-c08c66a3-d2e1-423e-ab79-89b7437f34f5';
+    $pane->panel = 'center';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'mixitup_controls-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'c08c66a3-d2e1-423e-ab79-89b7437f34f5';
+    $display->content['new-c08c66a3-d2e1-423e-ab79-89b7437f34f5'] = $pane;
+    $display->panels['center'][0] = 'new-c08c66a3-d2e1-423e-ab79-89b7437f34f5';
+    $pane = new stdClass();
+    $pane->pid = 'new-f5ad679e-2c84-454f-b517-8d9c3a0eb640';
+    $pane->panel = 'center';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'products_front-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = 'f5ad679e-2c84-454f-b517-8d9c3a0eb640';
+    $display->content['new-f5ad679e-2c84-454f-b517-8d9c3a0eb640'] = $pane;
+    $display->panels['center'][1] = 'new-f5ad679e-2c84-454f-b517-8d9c3a0eb640';
     $pane = new stdClass();
     $pane->pid = 'new-144075e8-e6c8-44c2-a976-292e76f54c7c';
     $pane->panel = 'top';
@@ -131,44 +227,6 @@ function front_panel_default_page_manager_pages() {
     $pane->uuid = '144075e8-e6c8-44c2-a976-292e76f54c7c';
     $display->content['new-144075e8-e6c8-44c2-a976-292e76f54c7c'] = $pane;
     $display->panels['top'][0] = 'new-144075e8-e6c8-44c2-a976-292e76f54c7c';
-    $pane = new stdClass();
-    $pane->pid = 'new-c08c66a3-d2e1-423e-ab79-89b7437f34f5';
-    $pane->panel = 'top';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'mixitup_controls-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = 'c08c66a3-d2e1-423e-ab79-89b7437f34f5';
-    $display->content['new-c08c66a3-d2e1-423e-ab79-89b7437f34f5'] = $pane;
-    $display->panels['top'][1] = 'new-c08c66a3-d2e1-423e-ab79-89b7437f34f5';
-    $pane = new stdClass();
-    $pane->pid = 'new-f5ad679e-2c84-454f-b517-8d9c3a0eb640';
-    $pane->panel = 'top';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'products_front-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 2;
-    $pane->locks = array();
-    $pane->uuid = 'f5ad679e-2c84-454f-b517-8d9c3a0eb640';
-    $display->content['new-f5ad679e-2c84-454f-b517-8d9c3a0eb640'] = $pane;
-    $display->panels['top'][2] = 'new-f5ad679e-2c84-454f-b517-8d9c3a0eb640';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
