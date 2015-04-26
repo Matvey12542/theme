@@ -1,0 +1,11 @@
+name = User follow
+description = Add functional for user follow.
+version = 7.x-1.x
+package = custom
+core = 7.x
+
+dependencies[] = views
+dependencies[] = ctools
+
+; Views Handlers
+files[] = views/user_follow.views.inc

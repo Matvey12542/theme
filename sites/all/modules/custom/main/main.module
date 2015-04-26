@@ -24,7 +24,7 @@ function main_block_view($delta = '') {
     case 'cart_header':
       $cart = getCartContent();
       $block['subject'] = '';
-      $block['content'] = '<div class="cart">' . $cart['subject'] . $cart['content'] . '</div>';
+      $block['content'] = '<div class="cart-wrapper">' . $cart['subject'] . $cart['content'] . '</div>';
       break;
   }
 
@@ -50,6 +50,10 @@ function getCartContent() {
     if ($quantity > 0) {
       // Build the variables array to send to the cart block template.
       $order_id = commerce_cart_order_id($user->uid);
+      global $user;
+      if (user_is_anonymous()) {
+        $order_id = commerce_cart_order_id($user->uid);
+      }
       $variables = array(
         'order' => $order,
         'contents_view' => commerce_embed_view('commerce_cart_block', 'Master', array($order_id)),
@@ -103,9 +107,19 @@ function main_views_api() {
  */
 function tocart_ajax_callback($pid, $quantity = 1, $mode = NULL) {
 
+  global $user;
+  if (user_is_anonymous()) {drupal_session_start();}
+
   $output = 'This product not found';
   if ($product = commerce_product_load($pid)) {
-    commerce_cart_product_add_by_id($pid, $quantity);
+    if ($order = commerce_cart_order_load($user->uid)) {
+      $line_item = commerce_product_line_item_new($product, 1, $order->order_id);
+      commerce_line_item_save($line_item);
+      $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+      $order_wrapper->commerce_line_items[] = $line_item;
+      commerce_order_save($order);
+    }
+    commerce_cart_product_add_by_id($pid, $quantity, TRUE);
   }
   if ($mode) {
     ctools_include('ajax');
@@ -167,3 +181,4 @@ function main_install() {
   variable_set('sharethis_button_option', 'stbc_large');
   variable_set('sharethis_location', 'block');
 }
+

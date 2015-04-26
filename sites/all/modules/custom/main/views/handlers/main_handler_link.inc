@@ -15,7 +15,7 @@ class main_handler_link extends views_handler_field {
     ctools_modal_add_js();
 
 //    return ctools_modal_text_button('quickreview', 'product-popup/'.$nid, t('View node content for @name', array('@name' => 'popup')), 'ctools-modal-happy-modal-style');
-    return ctools_ajax_text_button(t('Add to cart'), "to-cart/{$pid}/1/nojs", t('Add product to cart'));
+    return ctools_ajax_text_button(t('Add to cart'), "to-cart/{$pid}/1/nojs", t('Add product to cart'), 'add-to-cart');
   }
 }
 

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the user follow module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function user_follow_schema() {
+  $schema['user_follow'] = array(
+    'description' => t('The base table user follow.'),
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'user_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "User uid.",
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'description' => 'Follower id',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

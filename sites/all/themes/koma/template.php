@@ -5,7 +5,7 @@
  * template.php
  */
 
-function theme_preprocess_views_view_unformatted(&$vars)
+function koma_preprocess_views_view_unformatted(&$vars)
 {
   switch ($vars['view']->name) {
     case 'mixitup_controls':
@@ -38,4 +38,10 @@ function theme_preprocess_views_view_unformatted(&$vars)
       }
       break;
   }
+}
+/**
+ * Preproccess commerce_cart_empty_block().
+ */
+function main_commerce_cart_empty_block() {
+  return '<div class="cart-empty-block">buu</div>';
 }

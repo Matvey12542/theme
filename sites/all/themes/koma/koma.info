@@ -1,5 +1,5 @@
-name = Bootstrap Sub-theme
-description = Main theme
+name = Koma Bootstrap Sub-theme
+description = Koma
 core = 7.x
 base theme = bootstrap
 

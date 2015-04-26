@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Follow user content feature.
+ */
+
+include_once 'follow_user_content.features.inc';

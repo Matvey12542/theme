@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Enables the user follow.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function user_follow_menu() {
+  $items = array();
+  $items['ajax_link/%/%'] = array(
+    'page callback' => 'user_follow_create_ajax_link',
+    'page arguments' => array(1, 2),
+    'access callback' => 'user_is_logged_in',
+    'delivery callback' => 'ajax_deliver',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_user_view().
+ */
+function user_follow_user_view($account, $view_mode) {
+  global $user;
+  $fol_id = $account->uid;
+
+  if ($user->uid == $fol_id) {
+    return;
+  }
+
+  drupal_add_library('system', 'drupal.ajax');
+  if (!isset($account->content['fol_link'])) {
+    $account->content['fol_link'] = array();
+  }
+  $result = db_select('user_follow', 'uf')
+    ->fields('uf', array('uid'))
+    ->condition('uf.uid', $fol_id)
+    ->condition('uf.user_id', $user->uid)
+    ->execute()
+    ->fetchField();
+
+  if (empty($result)) {
+    $link = l(t('Follow this user'), "ajax_link/{$fol_id}/follow",
+      array('attributes' => array('class' => array('use-ajax', 'follow-link')))
+    );
+  }
+  else {
+    $link = l(t('Unfollow this user'), "ajax_link/{$fol_id}/unfollow", array('attributes' => array('class' => array('use-ajax', 'follow-link'))));
+  }
+  $account->content['fol_link'] += array(
+    '#type' => 'user_profile_item',
+    '#title' => t('Follow ajax link'),
+    '#weight' => 5,
+    '#markup' => $link,
+  );
+}
+
+/**
+ * Ajax callback function for user follow.
+ */
+function user_follow_create_ajax_link($fol_id, $action) {
+  global $user;
+
+  switch ($action) {
+    case 'follow':
+      $link = l(t('Unfollow this user'), "ajax_link/{$fol_id}/unfollow", array('attributes' => array('class' => array('use-ajax', 'follow-link'))));
+
+      db_insert('user_follow')
+        ->fields(array(
+            'user_id' => $user->uid,
+            'uid' => $fol_id,
+        ))
+        ->execute();
+      break;
+    case 'unfollow':
+      $link = l(t('Follow this user'), "ajax_link/{$fol_id}/follow", array('attributes' => array('class' => array('use-ajax', 'follow-link'))));
+
+      db_delete('user_follow')
+        ->condition('uid', $fol_id)
+        ->execute();
+      break;
+  }
+  $commands[] = ajax_command_replace('.follow-link', $link);
+
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function user_follow_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'user_follow') . '/views',
+  );
+}

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Subscribers feature.
+ */
+
+include_once 'subscribers.features.inc';
